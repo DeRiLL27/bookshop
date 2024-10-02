@@ -1,0 +1,21 @@
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment:
+      - "DJANGO_SECRET_KEY=FP-2yYw_hBPiaFg2KmfMdc2CEkdTeg-g_vMco5LwCJLUguAtIv8"
+  db:
+    image: postgres:16
+    volumes:
+      - books_postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+volumes:
+  books_postgres_data:
